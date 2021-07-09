@@ -56,8 +56,7 @@ ROOT_URLCONF = 'DHTutorial.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': []
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,8 +127,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Whoosh'),
+    "default": {
+        # For Simple:
+        "ENGINE": "haystack.backends.simple_backend.SimpleEngine"
     },
 }
