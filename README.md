@@ -31,52 +31,6 @@ Your choices after this are to restore from backups or rebuild via the `rebuild_
 Are you sure you wish to continue? [y/N] y
 Removing all documents from your index because you said so.
 All documents removed.
-/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1416: RuntimeWarning: DateTimeField Note.pub_date received a naive datetime (2021-07-09 08:08:07.506040) while time zone support is active.
-  warnings.warn("DateTimeField %s received a naive datetime (%s)"
-Indexing 0 notes
-(venv) congshi@congshideMacBook-Air DHTutorial % python manage.py shell
-Python 3.8.5 (v3.8.5:580fbb018f, Jul 20 2020, 12:11:27) 
-[Clang 6.0 (clang-600.0.57)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-(InteractiveConsole)
->>> from blog.models import Note
->>> u = Note()
->>> ^D
-now exiting InteractiveConsole...
-(venv) congshi@congshideMacBook-Air DHTutorial % python manage.py createsuperuser
-Username (leave blank to use 'congshi'): a
-Email address: a@a.com
-Password: 
-Password (again): 
-The password is too similar to the username.
-This password is too short. It must contain at least 8 characters.
-This password is too common.
-Bypass password validation and create user anyway? [y/N]: y
-Superuser created successfully.
-(venv) congshi@congshideMacBook-Air DHTutorial % python manage.py shell
-Python 3.8.5 (v3.8.5:580fbb018f, Jul 20 2020, 12:11:27) 
-[Clang 6.0 (clang-600.0.57)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-(InteractiveConsole)
->>> from blog.models import Note
->>> from django.contrib.auth.models import User
->>> u = User.objects.get(username='a')
->>> u
-<User: a>
->>> n = Note()
->>> n.user = u
->>> from django.utils import timezone
->>> n.pub_date = timezone.now()
->>> n.title = 'Hello django-haystack'
->>> n.body = 'Many thanks.'
->>> n.save()
->>> exit()
-(venv) congshi@congshideMacBook-Air DHTutorial % python manage.py rebuild_index
-WARNING: This will irreparably remove EVERYTHING from your search index in connection 'default'.
-Your choices after this are to restore from backups or rebuild via the `rebuild_index` command.
-Are you sure you wish to continue? [y/N] y
-Removing all documents from your index because you said so.
-All documents removed.
 /Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1416: RuntimeWarning: DateTimeField Note.pub_date received a naive datetime (2021-07-09 08:14:04.071331) while time zone support is active.
   warnings.warn("DateTimeField %s received a naive datetime (%s)"
 Indexing 1 notes
