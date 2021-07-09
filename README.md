@@ -2,6 +2,8 @@
 
 What's wrong with django-haystack [issue](https://github.com/django-haystack/django-haystack/issues/1804) ？
 
+## Test Whoosh
+
 ```shell
 $ python -m venv DHTutorial-venv
 $ source DHTutorial-venv/bin/active
@@ -125,6 +127,9 @@ sqlparse==0.4.1
 Whoosh==2.7.4
 $
 ```
+
+## Test Simple
+
 上面使用了whoosh作为`HAYSTACK_CONNECTIONS`中的default的值，会出现上面的错误。然后我修改为simple之后，就不会出现这样的问题，并且在搜索页面也能搜索出结果出来。
 
 对DHTutorial/settings.py的修改如下：
@@ -158,3 +163,46 @@ $
 ![](https://github.com/cs246810/DHTutorial/blob/TestHaystackConnectionSimple/use_simple.gif)
 
 然后初步可以判断是django-haystack与whoosh集成的问题。
+
+## Test Solr
+
+在使用之前需要安装solr服务，但是我已经安装好了。我是直接下载的solr-8.9.0的可执行压缩包解压之后，再
+启动的。
+
+```shell
+$ cd solr-8.9.0/bin
+$ ./solr start
+```
+
+然后访问http://localhost:8983/solr 查看能看到下面的展示，说明安装没有问题。
+
+![](https://github.com/cs246810/DHTutorial/blog/TestSolr/solr_start_ok.gif)
+
+接着替换`DHTutorial/settings.py`中的`HAYSTACK_CONNECTIONS`为：
+```python
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
+```
+
+由于使用了solr所以需要安装solr的驱动`pysolr`:
+```shell
+$ pip install pysolr
+```
+
+一切看起来是那么完美，似乎没有遇到什么问题。现在再:
+```shell
+$ python manage.py rebuild_index
+```
+
+这里又回出现一些其它的问题，原因是我没有配置好solr。
+
+但是很遗憾，django-haystack官方文档上最高只支持6.x版本的solr，所以，我现在基本可以放弃探索了。
+理由是，我现在用的是8.9版本的solr，现在文档上没写，那么也就是还没支持到，现在应该停止实验。
+
+另外，solr官方文档实在太无聊，真想快点让这可怕的经历结束。
