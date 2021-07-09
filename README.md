@@ -116,5 +116,12 @@ Traceback (most recent call last):
   File "/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
     raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
 django.template.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
+$ pip freeze
+asgiref==3.4.1
+Django==3.2.5
+django-haystack==3.0
+pytz==2021.1
+sqlparse==0.4.1
+Whoosh==2.7.4
 $
 ```
