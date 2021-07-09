@@ -125,3 +125,12 @@ sqlparse==0.4.1
 Whoosh==2.7.4
 $
 ```
+
+I had move `blog/templates` fold to project level `DHTutorial/templates` and also the 
+issue occurs.
+
+This is my debug note use pycharm.
+
+![](https://github.com/cs246810/DHTutorial/blob/django-haystack-issues-1804/debug-django-haystack-1804-issue.gif)
+
+Everything is ok. What's the fuck ?
