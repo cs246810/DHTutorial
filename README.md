@@ -154,3 +154,11 @@ This is my debug note use pycharm.
 ![](https://github.com/cs246810/DHTutorial/blob/django-haystack-issues-1804/debug-django-haystack-1804-issue.gif)
 
 Everything is ok. What's the fuck ?
+
+It's the fuck file name `note_text.txt `, correct name is `note_text.txt`.
+```python
+a = 'note_text.txt ' # That is the issue.
+b = 'note_text.txt'
+```
+
+Many thanks for this issue.
