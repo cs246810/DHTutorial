@@ -129,6 +129,26 @@ $
 I had move `blog/templates` fold to project level `DHTutorial/templates` and also the 
 issue occurs.
 
+The project `settings.py` is ok.
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates']
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
 This is my debug note use pycharm.
 
 ![](https://github.com/cs246810/DHTutorial/blob/django-haystack-issues-1804/debug-django-haystack-1804-issue.gif)
