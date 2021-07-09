@@ -176,7 +176,7 @@ $ ./solr start
 
 然后访问http://localhost:8983/solr 查看能看到下面的展示，说明安装没有问题。
 
-![](https://github.com/cs246810/DHTutorial/blog/TestSolr/solr_start_ok.gif)
+![](https://github.com/cs246810/DHTutorial/blob/TestSolr/solr_start_ok.gif)
 
 接着替换`DHTutorial/settings.py`中的`HAYSTACK_CONNECTIONS`为：
 ```python
