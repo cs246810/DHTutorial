@@ -52,7 +52,7 @@ Traceback (most recent call last):
     t = loader.select_template(template_names)
   File "/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
     raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
-django.template.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
+django.templates.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
 [ERROR/MainProcess] Error updating blog using default 
 Traceback (most recent call last):
   File "/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/haystack/management/commands/update_index.py", line 274, in handle
@@ -75,7 +75,7 @@ Traceback (most recent call last):
     t = loader.select_template(template_names)
   File "/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
     raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
-django.template.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
+django.templates.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
 Traceback (most recent call last):
   File "manage.py", line 22, in <module>
     main()
@@ -115,7 +115,7 @@ Traceback (most recent call last):
     t = loader.select_template(template_names)
   File "/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
     raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
-django.template.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
+django.templates.exceptions.TemplateDoesNotExist: search/indexes/blog/note_text.txt
 $ pip freeze
 asgiref==3.4.1
 Django==3.2.5
@@ -125,3 +125,36 @@ sqlparse==0.4.1
 Whoosh==2.7.4
 $
 ```
+上面使用了whoosh作为`HAYSTACK_CONNECTIONS`中的default的值，会出现上面的错误。然后我修改为simple之后，就不会出现这样的问题，并且在搜索页面也能搜索出结果出来。
+
+对DHTutorial/settings.py的修改如下：
+```
+HAYSTACK_CONNECTIONS = {
+    "default": {
+        # For Simple:
+        "ENGINE": "haystack.backends.simple_backend.SimpleEngine"
+    },
+}
+```
+然后继续`rebuild_index`
+```shell
+$ python manage.py rebuild_index
+WARNING: This will irreparably remove EVERYTHING from your search index in connection 'default'.
+Your choices after this are to restore from backups or rebuild via the `rebuild_index` command.
+Are you sure you wish to continue? [y/N] y
+Removing all documents from your index because you said so.
+/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/haystack/backends/simple_backend.py:31: UserWarning: clear is not implemented in this backend
+  warn("clear is not implemented in this backend")
+All documents removed.
+/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1416: RuntimeWarning: DateTimeField Note.pub_date received a naive datetime (2021-07-09 10:31:20.785959) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+Indexing 1 notes
+/Users/congshi/PycharmProjects/DHTutorial/venv/lib/python3.8/site-packages/haystack/backends/simple_backend.py:25: UserWarning: update is not implemented in this backend
+  warn("update is not implemented in this backend")
+$
+```
+这次没有出错误，只是出现警告。然后在浏览器中搜索发现没有问题。
+
+![](https://github.com/cs246810/DHTutorial/blob/TestHaystackConnectionSimple/use_simple.gif)
+
+然后初步可以判断是django-haystack与whoosh集成的问题。
