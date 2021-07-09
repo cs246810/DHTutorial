@@ -2,7 +2,7 @@
 
 What's wrong with django-haystack [issue](https://github.com/django-haystack/django-haystack/issues/1804) ？
 
-## Test Whoosh
+## Test Whoosh: Failed
 
 ```shell
 $ python -m venv DHTutorial-venv
@@ -128,7 +128,7 @@ Whoosh==2.7.4
 $
 ```
 
-## Test Simple
+## Test Simple: Success
 
 上面使用了whoosh作为`HAYSTACK_CONNECTIONS`中的default的值，会出现上面的错误。然后我修改为simple之后，就不会出现这样的问题，并且在搜索页面也能搜索出结果出来。
 
@@ -164,7 +164,7 @@ $
 
 然后初步可以判断是django-haystack与whoosh集成的问题。
 
-## Test Solr
+## Test Solr: Failed
 
 在使用之前需要安装solr服务，但是我已经安装好了。我是直接下载的solr-8.9.0的可执行压缩包解压之后，再
 启动的。
